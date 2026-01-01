@@ -1,13 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Bell, User, Plus } from 'lucide-react';
+import { Bell, User, Plus, LayoutGrid } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import SearchBar from '@/components/notices/SearchBar';
 import CategoryFilter from '@/components/notices/CategoryFilter';
 import NoticeList from '@/components/notices/NoticeList';
 import UrgentBanner from '@/components/notices/UrgentBanner';
+import BottomNav from '@/components/navigation/BottomNav';
 import { useAuth } from '@/contexts/AuthContext';
-import { Badge } from '@/components/ui/badge';
 import { useNavigate } from 'react-router-dom';
 
 const Index: React.FC = () => {
@@ -71,13 +71,16 @@ const Index: React.FC = () => {
         </motion.div>
       </main>
 
+      {/* Bottom Navigation */}
+      <BottomNav />
+
       {/* Floating Action Button */}
       {user && (user.role === 'faculty' || user.role === 'admin') && (
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.5, type: 'spring' }}
-          className="fixed bottom-6 right-6 z-50"
+          className="fixed bottom-20 right-6 z-40"
         >
           <Button size="icon" className="h-14 w-14 rounded-full shadow-lg">
             <Plus className="h-6 w-6" />

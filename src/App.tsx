@@ -6,6 +6,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { NoticesProvider } from "@/contexts/NoticesContext";
 import Index from "./pages/Index";
+import Board from "./pages/Board";
+import NoticeDetail from "./pages/NoticeDetail";
+import Profile from "./pages/Profile";
+import CampusMap from "./pages/CampusMap";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -20,6 +24,10 @@ const App = () => (
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/board" element={<Board />} />
+              <Route path="/notice/:id" element={<NoticeDetail />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/map" element={<CampusMap />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
