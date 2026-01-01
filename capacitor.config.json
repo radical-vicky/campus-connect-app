@@ -1,0 +1,23 @@
+{
+  "appId": "app.lovable.80b85d119f554e18aff5d215e626b7d1",
+  "appName": "CampusNotice Pro",
+  "webDir": "dist",
+  "server": {
+    "url": "https://80b85d11-9f55-4e18-aff5-d215e626b7d1.lovableproject.com?forceHideBadge=true",
+    "cleartext": true
+  },
+  "ios": {
+    "contentInset": "automatic"
+  },
+  "android": {
+    "allowMixedContent": true
+  },
+  "plugins": {
+    "PushNotifications": {
+      "presentationOptions": ["badge", "sound", "alert"]
+    },
+    "Geolocation": {
+      "enableHighAccuracy": true
+    }
+  }
+}
