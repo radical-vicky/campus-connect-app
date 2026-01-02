@@ -10,11 +10,10 @@ import {
   MapPin,
   Shield,
   LogOut,
-  User as UserIcon,
   GraduationCap,
   Building,
   Mail,
-  Calendar
+  LogIn
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -24,11 +23,12 @@ import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNotices } from '@/contexts/NoticesContext';
-import { UserRole } from '@/types';
+
+type UserRole = 'student' | 'faculty' | 'admin';
 
 const Profile: React.FC = () => {
   const navigate = useNavigate();
-  const { user, switchRole, logout } = useAuth();
+  const { user, logout, isLoading } = useAuth();
   const { notices } = useNotices();
 
   const savedNotices = notices.filter((n) => n.isBookmarked);
@@ -68,10 +68,22 @@ const Profile: React.FC = () => {
     },
   ];
 
-  if (!user) {
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <Button onClick={() => navigate('/')}>Go to Home</Button>
+        <div className="h-8 w-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center gap-4 p-4">
+        <h2 className="text-xl font-semibold">Sign in to view your profile</h2>
+        <Button onClick={() => navigate('/auth')} className="gap-2">
+          <LogIn className="h-4 w-4" />
+          Sign In
+        </Button>
       </div>
     );
   }
@@ -154,26 +166,12 @@ const Profile: React.FC = () => {
             </Card>
           </div>
 
-          {/* Demo Role Switcher */}
-          <Card className="border-dashed border-2 border-accent/50 bg-accent/5">
+          {/* Role Info */}
+          <Card className="bg-primary/5 border-primary/20">
             <CardContent className="py-4">
-              <p className="text-sm font-medium mb-3 flex items-center gap-2">
-                <UserIcon className="h-4 w-4" />
-                Demo: Switch Role
+              <p className="text-sm text-muted-foreground">
+                Your role: <span className="font-medium text-foreground capitalize">{user.role}</span>
               </p>
-              <div className="flex gap-2">
-                {(['student', 'faculty', 'admin'] as UserRole[]).map((role) => (
-                  <Button
-                    key={role}
-                    variant={user.role === role ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => switchRole(role)}
-                    className="flex-1"
-                  >
-                    {role.charAt(0).toUpperCase() + role.slice(1)}
-                  </Button>
-                ))}
-              </div>
             </CardContent>
           </Card>
 

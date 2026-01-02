@@ -14,16 +14,313 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      bookmarks: {
+        Row: {
+          created_at: string
+          id: string
+          notice_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          notice_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          notice_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bookmarks_notice_id_fkey"
+            columns: ["notice_id"]
+            isOneToOne: false
+            referencedRelation: "notices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      campus_locations: {
+        Row: {
+          building: string
+          created_at: string
+          id: string
+          lat: number
+          lng: number
+          name: string
+          zone: string
+        }
+        Insert: {
+          building: string
+          created_at?: string
+          id?: string
+          lat: number
+          lng: number
+          name: string
+          zone: string
+        }
+        Update: {
+          building?: string
+          created_at?: string
+          id?: string
+          lat?: number
+          lng?: number
+          name?: string
+          zone?: string
+        }
+        Relationships: []
+      }
+      comment_likes: {
+        Row: {
+          comment_id: string
+          created_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          comment_id: string
+          created_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          comment_id?: string
+          created_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "comment_likes_comment_id_fkey"
+            columns: ["comment_id"]
+            isOneToOne: false
+            referencedRelation: "comments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      comments: {
+        Row: {
+          author_id: string
+          content: string
+          created_at: string
+          id: string
+          likes: number | null
+          notice_id: string
+        }
+        Insert: {
+          author_id: string
+          content: string
+          created_at?: string
+          id?: string
+          likes?: number | null
+          notice_id: string
+        }
+        Update: {
+          author_id?: string
+          content?: string
+          created_at?: string
+          id?: string
+          likes?: number | null
+          notice_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "comments_notice_id_fkey"
+            columns: ["notice_id"]
+            isOneToOne: false
+            referencedRelation: "notices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notice_attachments: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          notice_id: string
+          type: string
+          url: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          notice_id: string
+          type: string
+          url: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          notice_id?: string
+          type?: string
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notice_attachments_notice_id_fkey"
+            columns: ["notice_id"]
+            isOneToOne: false
+            referencedRelation: "notices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notices: {
+        Row: {
+          author_id: string
+          category: Database["public"]["Enums"]["notice_category"]
+          content: string
+          created_at: string
+          event_date: string | null
+          excerpt: string
+          expires_at: string | null
+          id: string
+          is_pinned: boolean | null
+          location_id: string | null
+          priority: Database["public"]["Enums"]["notice_priority"]
+          save_count: number | null
+          tags: string[] | null
+          title: string
+          updated_at: string
+          view_count: number | null
+        }
+        Insert: {
+          author_id: string
+          category: Database["public"]["Enums"]["notice_category"]
+          content: string
+          created_at?: string
+          event_date?: string | null
+          excerpt: string
+          expires_at?: string | null
+          id?: string
+          is_pinned?: boolean | null
+          location_id?: string | null
+          priority?: Database["public"]["Enums"]["notice_priority"]
+          save_count?: number | null
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+          view_count?: number | null
+        }
+        Update: {
+          author_id?: string
+          category?: Database["public"]["Enums"]["notice_category"]
+          content?: string
+          created_at?: string
+          event_date?: string | null
+          excerpt?: string
+          expires_at?: string | null
+          id?: string
+          is_pinned?: boolean | null
+          location_id?: string | null
+          priority?: Database["public"]["Enums"]["notice_priority"]
+          save_count?: number | null
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
+          view_count?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notices_location_id_fkey"
+            columns: ["location_id"]
+            isOneToOne: false
+            referencedRelation: "campus_locations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          department: string | null
+          email: string
+          id: string
+          is_verified: boolean | null
+          name: string
+          updated_at: string
+          user_id: string
+          year: number | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          department?: string | null
+          email: string
+          id?: string
+          is_verified?: boolean | null
+          name: string
+          updated_at?: string
+          user_id: string
+          year?: number | null
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          department?: string | null
+          email?: string
+          id?: string
+          is_verified?: boolean | null
+          name?: string
+          updated_at?: string
+          user_id?: string
+          year?: number | null
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_user_role: {
+        Args: { _user_id: string }
+        Returns: Database["public"]["Enums"]["app_role"]
+      }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "student" | "faculty" | "admin"
+      notice_category:
+        | "academic"
+        | "events"
+        | "emergency"
+        | "social"
+        | "jobs"
+        | "lostfound"
+      notice_priority: "low" | "medium" | "high" | "urgent"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +447,17 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["student", "faculty", "admin"],
+      notice_category: [
+        "academic",
+        "events",
+        "emergency",
+        "social",
+        "jobs",
+        "lostfound",
+      ],
+      notice_priority: ["low", "medium", "high", "urgent"],
+    },
   },
 } as const

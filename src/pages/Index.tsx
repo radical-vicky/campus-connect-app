@@ -75,14 +75,18 @@ const Index: React.FC = () => {
       <BottomNav />
 
       {/* Floating Action Button */}
-      {user && (user.role === 'faculty' || user.role === 'admin') && (
+      {user && (
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.5, type: 'spring' }}
           className="fixed bottom-20 right-6 z-40"
         >
-          <Button size="icon" className="h-14 w-14 rounded-full shadow-lg">
+          <Button 
+            size="icon" 
+            className="h-14 w-14 rounded-full shadow-lg"
+            onClick={() => navigate('/create-notice')}
+          >
             <Plus className="h-6 w-6" />
           </Button>
         </motion.div>
